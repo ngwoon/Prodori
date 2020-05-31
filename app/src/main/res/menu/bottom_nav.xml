@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="검색" />
+    <item
+        android:id="@+id/community"
+        android:icon="@drawable/ic_community"
+        android:title="커뮤니티" />
+    <item
+        android:id="@+id/developer"
+        android:icon="@drawable/ic_dev"
+        android:title="개발자" />
+
+</menu>

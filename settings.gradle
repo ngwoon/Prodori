@@ -1,0 +1,2 @@
+rootProject.name='Prodori'
+include ':app'
