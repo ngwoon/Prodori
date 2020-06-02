@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -24,6 +25,18 @@ class DetailInfoFragment : Fragment() {
         val data = bundle?.getSerializable("AdInfo")
 
         makeRecord(data as AdInfo, view)
+
+        (mContext as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        val customView = (mContext as MainActivity).supportActionBar?.customView
+        var leftImageView = customView?.findViewById<ImageView>(R.id.leftImageView)
+        leftImageView?.setImageDrawable(resources.getDrawable(R.drawable.ic_goback, null))
+
+        leftImageView?.setOnClickListener {
+            val fragmentManager = (mContext as MainActivity).supportFragmentManager
+            //val fragmentTransaction = fragmentManager.beginTransaction()
+
+            fragmentManager.popBackStack()
+        }
 
         return view
     }

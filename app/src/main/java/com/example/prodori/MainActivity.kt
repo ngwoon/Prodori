@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         val parent = actionBar.parent as Toolbar
         parent.setContentInsetsAbsolute(0,0)
 
+
         return super.onCreateOptionsMenu(menu)
     }
 

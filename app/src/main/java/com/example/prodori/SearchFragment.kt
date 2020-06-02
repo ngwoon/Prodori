@@ -53,7 +53,8 @@ class SearchFragment : Fragment() {
             val asyncTask = RequestAsyncTask(this)
             asyncTask.execute(searchText)
             view.tableLayout.removeAllViews()
-
+            
+            // 검색 버튼 클릭 시 소프트키보드 숨기기
             val imm: InputMethodManager? = mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
             imm?.hideSoftInputFromWindow((mContext as Activity).currentFocus?.windowToken, 0)
         }
@@ -70,7 +71,8 @@ class SearchFragment : Fragment() {
         super.onResume()
         makeRecord(null)
     }
-
+    
+    // searchResult 안의 pName들 겹치는 내용 걸러내기
     private fun pullOutProductName(searchWord: String) {
         for(adinfo in searchResult) {
             val refinedProductName = adinfo.pName.split(",")
@@ -90,7 +92,6 @@ class SearchFragment : Fragment() {
         // onResume에서 호출될 때에는 이미 searchResult가 refine된 상태이므로 아래 작업을 할 필요가 없다.
         if(searchWord != null)
             pullOutProductName(searchWord)
-
 
         val rowParams = TableRow.LayoutParams(TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1f))
         val textParams = TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1f)
