@@ -1,8 +1,11 @@
 package com.example.prodori
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
@@ -39,7 +42,30 @@ class MainActivity : AppCompatActivity() {
         val parent = actionBar.parent as Toolbar
         parent.setContentInsetsAbsolute(0,0)
 
+        // 왼쪽 상단 imageView 이미지 지정
+        val leftImageView = findViewById<ImageView>(R.id.leftImageView)
+        leftImageView.setImageDrawable(
+            when(LoginInfo.isLoggedIn) {
+                true -> { resources.getDrawable(R.drawable.ic_logout, null) }
+                false -> { resources.getDrawable(R.drawable.ic_logout, null) }
+            }
+        )
 
+        // 로그인, 로그아웃 리스너
+        leftImageView.setOnClickListener {
+            if(!LoginInfo.isLoggedIn)
+                startActivity(Intent(this, LoginActivity::class.java))
+            else {
+                val builder = AlertDialog.Builder(this)
+                builder.setView(layoutInflater.inflate(R.layout.dialog_logout, null))
+                    .setNegativeButton("취소") { dialog, which -> }
+                    .setPositiveButton("확인") { dialog, which ->
+                        leftImageView.setImageDrawable(resources.getDrawable(R.drawable.ic_login, null))
+                        LoginInfo.isLoggedIn = false
+                    }
+                    .show()
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

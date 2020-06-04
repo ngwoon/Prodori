@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search"
-    app:startDestination="@id/searchProductFragment">
+    app:startDestination="@id/searchFragment">
 
     <fragment
-        android:id="@+id/searchProductFragment"
+        android:id="@+id/searchFragment"
         android:name="com.example.prodori.SearchFragment"
-        android:label="fragment_search_product"
-        tools:layout="@layout/fragment_search" >
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_search_to_detail"
             app:destination="@id/productDetailFragment" />
@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_detail_info" >
         <action
             android:id="@+id/action_detail_to_search"
-            app:destination="@id/searchProductFragment" />
+            app:destination="@id/searchFragment" />
     </fragment>
 </navigation>

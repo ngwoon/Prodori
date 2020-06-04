@@ -15,7 +15,8 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import org.jsoup.Jsoup
@@ -28,6 +29,7 @@ class SearchFragment : Fragment() {
     private lateinit var mContext: Context
     private val RESPONSE_CODE = ArrayList<Pair<String, String>>()
     private val searchResult = ArrayList<AdInfo>()
+    private lateinit var navController: NavController
 
     init {
         RESPONSE_CODE.add(Pair("01", "APP_ERROR"))
@@ -65,6 +67,8 @@ class SearchFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+        val host = (mContext as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+        navController = host.navController
     }
 
     override fun onResume() {
@@ -97,14 +101,15 @@ class SearchFragment : Fragment() {
         val textParams = TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1f)
 
         for(i in 0 until searchResult.size) {
-
             val row = TableRow(mContext)
             row.layoutParams = rowParams
 
             row.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putSerializable("AdInfo", searchResult[i])
-                Navigation.findNavController(view!!).navigate(R.id.action_search_to_detail, bundle)
+
+                val host = (mContext as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+                host.navController.navigate(R.id.action_search_to_detail, bundle)
             }
 
             val textViews = ArrayList<TextView>()
@@ -140,7 +145,6 @@ class SearchFragment : Fragment() {
         }
 
         override fun doInBackground(vararg params: String): String {
-
             val url = "http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?ServiceKey=${getString(R.string.SERVICE_KEY)}&Prduct=${params[0]}"
             val doc = Jsoup.connect(url).parser(Parser.xmlParser()).get()
             val responseCode = doc.select("resultCode").toString()
@@ -155,7 +159,6 @@ class SearchFragment : Fragment() {
             }
 
             if(isSuccess) {
-
                 searchResult.clear()
 
                 val items = doc.select("item")
@@ -175,7 +178,6 @@ class SearchFragment : Fragment() {
             else {
 
             }
-
             return params[0]
         }
 

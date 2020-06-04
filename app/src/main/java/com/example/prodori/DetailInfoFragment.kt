@@ -6,16 +6,18 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class DetailInfoFragment : Fragment() {
 
     private val itemTitle = arrayOf("제품명", "제조사", "주소", "적발내용", "행정처분일자", "처분명", "위반법령")
     private lateinit var mContext: Context
+    private lateinit var navController: NavController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -27,16 +29,12 @@ class DetailInfoFragment : Fragment() {
         makeRecord(data as AdInfo, view)
 
         (mContext as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        val customView = (mContext as MainActivity).supportActionBar?.customView
-        var leftImageView = customView?.findViewById<ImageView>(R.id.leftImageView)
-        leftImageView?.setImageDrawable(resources.getDrawable(R.drawable.ic_goback, null))
-
-        leftImageView?.setOnClickListener {
-            val fragmentManager = (mContext as MainActivity).supportFragmentManager
-            //val fragmentTransaction = fragmentManager.beginTransaction()
-
-            fragmentManager.popBackStack()
-        }
+//        val customView = (mContext as MainActivity).supportActionBar?.customView
+//        var leftImageView = customView?.findViewById<ImageView>(R.id.leftImageView)
+//        leftImageView?.setImageDrawable(resources.getDrawable(R.drawable.ic_goback, null))
+//        leftImageView?.setOnClickListener {
+//            navController.popBackStack()
+//        }
 
         return view
     }
@@ -89,5 +87,7 @@ class DetailInfoFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+        val host = (mContext as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+        navController = host.navController
     }
 }
