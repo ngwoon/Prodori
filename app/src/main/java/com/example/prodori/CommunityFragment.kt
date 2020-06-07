@@ -28,19 +28,17 @@ class CommunityFragment : Fragment() {
         val fragment: Fragment =
             if(!LoginInfo.isLoggedIn)
                 NotAuthenticatedFragment()
-            else if(LoginInfo.nickname == LoginInfo.NO_NICKNAME)
+            else if(LoginInfo.nickname == LoginInfo.NO_NICKNAME) {
+                Log.i("CommunityFragment", "no nickname")
                 NoNicknameFragment()
-            else
+            }
+            else {
+                Log.i("CommunityFragment", "allauth")
                 AllAuthenticatedFragment()
+            }
 
         fragmentTransaction.replace(R.id.dynamicFragment, fragment).commit()
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        Log.i("CommunityFragment", "onresume")
-//        checkAuth()
-//    }
 
     override fun onAttach(context: Context) {
         Log.i("CommunityFragment", "onattach")
@@ -49,4 +47,9 @@ class CommunityFragment : Fragment() {
 //        val host = (mContext as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
 //        navController = host.navController
     }
+
+    fun refresh() {
+        checkAuth()
+    }
+
 }

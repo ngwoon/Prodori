@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.widget.ImageView
@@ -148,8 +147,20 @@ class MainActivity : AppCompatActivity() {
                         }
                         if(!isExist) {
                             val newRef = database.push()
+                            val valueMap = HashMap<String, String>()
+                            valueMap["email"] = user.email!!
+                            valueMap["nickname"] = LoginInfo.NO_NICKNAME
+
                             LoginInfo.key = newRef.key as String
-                            newRef.setValue(Pair(user.email!!, LoginInfo.NO_NICKNAME))
+                            newRef.setValue(valueMap)
+                        }
+
+
+                        // 현재 페이지가 community이면 갱신
+                        if(bottomNavigationView.selectedItemId == R.id.community) {
+                            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container)!!
+                            val communityFragment = hostFragment.childFragmentManager.fragments[0] as CommunityFragment
+                            communityFragment.refresh()
                         }
                     }
                 })
@@ -160,12 +171,6 @@ class MainActivity : AppCompatActivity() {
                 // the error code and handle the error.
                 Toast.makeText(this, "Sign in unsuccessful ${response?.error?.errorCode}", Toast.LENGTH_SHORT).show();
             }
-        }
-
-        if(bottomNavigationView.selectedItemId == R.id.community) {
-            Log.i("MainActivity", "onresultActivity")
-            val communityFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container)
-            communityFragment!!.onActivityCreated(savedInstanceState)
         }
     }
 

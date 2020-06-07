@@ -24,36 +24,42 @@ class NoNicknameFragment : Fragment() {
         view.useNickname.setOnClickListener {
             val inputNickname = view.inputNickname.text.toString()
 
-            val database = FirebaseDatabase.getInstance().getReference("users")
-            database.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                    Toast.makeText(mContext, "데이터 로드 실패", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-
-                    var isExist = false
-                    for(snapshot in dataSnapshot.children) {
-                        val pair = snapshot.value as HashMap<*,*>
-                        if(pair["second"] == inputNickname) {
-                            isExist = true
-                            break
-                        }
+            if(inputNickname == LoginInfo.NO_NICKNAME || inputNickname == LoginInfo.DEFAULT_EMAIL) {
+                Toast.makeText(mContext, "이 닉네임은 사용하실 수 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val database = FirebaseDatabase.getInstance().getReference("users")
+                database.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError) {
+                        Toast.makeText(mContext, "데이터 로드 실패", Toast.LENGTH_SHORT).show()
                     }
 
-                    if(!isExist) {
-                        val map = HashMap<String, Any>()
-                        val valueMap = HashMap<String, String>()
-                        valueMap["email"] = LoginInfo.email
-                        valueMap["nickname"] = inputNickname
-                        map[LoginInfo.key] = valueMap
-                        database.updateChildren(map)
-                    } else
-                        Toast.makeText(mContext, "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show()
-                }
-            })
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+
+                        var isExist = false
+                        for (snapshot in dataSnapshot.children) {
+                            val pair = snapshot.value as HashMap<*, *>
+                            if (pair["second"] == inputNickname) {
+                                isExist = true
+                                break
+                            }
+                        }
+
+                        if (!isExist) {
+                            val map = HashMap<String, Any>()
+                            val valueMap = HashMap<String, String>()
+                            valueMap["email"] = LoginInfo.email
+                            valueMap["nickname"] = inputNickname
+                            map[LoginInfo.key] = valueMap
+                            database.updateChildren(map)
+                        } else
+                            Toast.makeText(mContext, "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+            view.inputNickname.setText("")
         }
 
         return view
