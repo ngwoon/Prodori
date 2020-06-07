@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "639863727943",
+    "firebase_url": "https://prodori-b6057.firebaseio.com",
+    "project_id": "prodori-b6057",
+    "storage_bucket": "prodori-b6057.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639863727943:android:d05948f8edc77accbb4e62",
+        "android_client_info": {
+          "package_name": "com.example.prodori"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639863727943-aj02189vvi9l01dp984mjr0ekflcv6ns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prodori",
+            "certificate_hash": "ec852777407d604f1701c0c1fc4c397d85171236"
+          }
+        },
+        {
+          "client_id": "639863727943-aqjhesits8r0g10h2u4idsbfgri3943a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0qkrvx2iULimijlEXvnWRfo9H179tI4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639863727943-aqjhesits8r0g10h2u4idsbfgri3943a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

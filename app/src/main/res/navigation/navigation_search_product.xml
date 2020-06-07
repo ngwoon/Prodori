@@ -18,7 +18,7 @@
         android:id="@+id/productDetailFragment"
         android:name="com.example.prodori.DetailInfoFragment"
         android:label="fragment_product_detail"
-        tools:layout="@layout/fragment_detail_info" >
+        tools:layout="@layout/fragment_detail_info">
         <action
             android:id="@+id/action_detail_to_search"
             app:destination="@id/searchFragment" />
