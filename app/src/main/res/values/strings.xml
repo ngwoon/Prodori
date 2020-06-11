@@ -6,4 +6,9 @@
     <string name="SERVICE_KEY">Rjj2Ly96fAEYLPcwTSh2uwRIQdnVxrDHYbRPoNnVPATdfBB17ok1x1luVwLQi5OqlkvnLU3EpLwJliSQ61cYxw%3D%3D</string>
     <string name="dev_email">문의 : todory2002@gmail.com</string>
     <string name="not_log_in">로그인 후 이용 가능합니다.</string>
+
+    <string-array name="category">
+        <item>사용 후기</item>
+        <item>질문</item>
+    </string-array>
 </resources>

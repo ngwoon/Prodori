@@ -155,7 +155,6 @@ class MainActivity : AppCompatActivity() {
                             newRef.setValue(valueMap)
                         }
 
-
                         // 현재 페이지가 community이면 갱신
                         if(bottomNavigationView.selectedItemId == R.id.community) {
                             val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container)!!

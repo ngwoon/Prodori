@@ -37,7 +37,8 @@ class CommunityFragment : Fragment() {
                 AllAuthenticatedFragment()
             }
 
-        fragmentTransaction.replace(R.id.dynamicFragment, fragment).commit()
+        fragmentTransaction.replace(R.id.dynamicFragment, fragment)
+        fragmentTransaction.commit()
     }
 
     override fun onAttach(context: Context) {
@@ -51,5 +52,4 @@ class CommunityFragment : Fragment() {
     fun refresh() {
         checkAuth()
     }
-
 }
