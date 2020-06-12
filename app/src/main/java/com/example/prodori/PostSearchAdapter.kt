@@ -1,6 +1,7 @@
 package com.example.prodori
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,11 @@ class PostSearchAdapter(private val mContext: Context, private val posts: ArrayL
         val writer: TextView = itemView.findViewById(R.id.writer)
         val category: TextView = itemView.findViewById(R.id.category)
         val postImage: ImageView = itemView.findViewById(R.id.postImageView)
+        init {
+            itemView.setOnClickListener {
+                
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int) : ViewHolder {
@@ -29,6 +35,7 @@ class PostSearchAdapter(private val mContext: Context, private val posts: ArrayL
     }
 
     override fun getItemCount(): Int {
+        Log.i("getItemCount", "size : ${curPosts.size}")
         return posts.size
     }
 
@@ -36,7 +43,7 @@ class PostSearchAdapter(private val mContext: Context, private val posts: ArrayL
         holder.title.text = posts[position].title
         holder.writer.text = posts[position].writer
         holder.category.text = posts[position].category
-        holder.postImage.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_no_image, null))
+//        holder.postImage.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_no_image, null))
         holder.writer.text = posts[position].writer
     }
 }

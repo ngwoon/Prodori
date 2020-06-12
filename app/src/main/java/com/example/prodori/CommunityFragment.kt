@@ -17,24 +17,22 @@ class CommunityFragment : Fragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.i("CommunityFragment", "onActivityCreated")
         super.onActivityCreated(savedInstanceState)
         checkAuth()
     }
 
     private fun checkAuth() {
-        Log.i("CommunityFragment", "checkAuth")
         val fragmentTransaction = childFragmentManager.beginTransaction()
         val fragment: Fragment =
             if(!LoginInfo.isLoggedIn)
                 NotAuthenticatedFragment()
-            else if(LoginInfo.nickname == LoginInfo.NO_NICKNAME) {
-                Log.i("CommunityFragment", "no nickname")
+            else if(LoginInfo.nickname == LoginInfo.NO_NICKNAME)
                 NoNicknameFragment()
-            }
             else {
-                Log.i("CommunityFragment", "allauth")
-                AllAuthenticatedFragment()
+                val aaf = AllAuthenticatedFragment()
+                aaf.setFragmentManager(childFragmentManager)
+
+                aaf
             }
 
         fragmentTransaction.replace(R.id.dynamicFragment, fragment)

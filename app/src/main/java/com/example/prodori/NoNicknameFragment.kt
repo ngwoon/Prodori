@@ -71,5 +71,4 @@ class NoNicknameFragment : Fragment() {
 //        val host = (mContext as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
 //        navController = host.navController
     }
-
 }
