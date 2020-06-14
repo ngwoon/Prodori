@@ -29,7 +29,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:text="게시글 제목"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -70,25 +70,9 @@
                 android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/detail_post_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="조회수 0" />
-
-                <View
-                    android:id="@+id/detail_post_line2"
-                    android:layout_width="1dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/vertical_line" />
-
-                <TextView
                     android:id="@+id/detail_post_like"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
                     android:gravity="center"
                     android:text="추천 10" />
 
@@ -116,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="내용"
-                android:textSize="35sp"
+                android:textSize="20sp"
                 android:textStyle="normal" />
 
 

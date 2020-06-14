@@ -2,7 +2,6 @@ package com.example.prodori
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,12 @@ class CommunityFragment : Fragment() {
         val fragment: Fragment =
             if(!LoginInfo.isLoggedIn)
                 NotAuthenticatedFragment()
-            else if(LoginInfo.nickname == LoginInfo.NO_NICKNAME)
-                NoNicknameFragment()
+            else if(LoginInfo.nickname == LoginInfo.NO_NICKNAME) {
+                val nnf = NoNicknameFragment()
+                nnf.setFragmentManager(childFragmentManager)
+
+                nnf
+            }
             else {
                 val aaf = AllAuthenticatedFragment()
                 aaf.setFragmentManager(childFragmentManager)
@@ -40,11 +43,8 @@ class CommunityFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
-        Log.i("CommunityFragment", "onattach")
         super.onAttach(context)
         mContext = context
-//        val host = (mContext as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
-//        navController = host.navController
     }
 
     fun refresh() {

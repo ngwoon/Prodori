@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_no_nickname.view.*
 class NoNicknameFragment : Fragment() {
 
     lateinit var mContext: Context
+    private lateinit var cfm: FragmentManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -54,6 +56,19 @@ class NoNicknameFragment : Fragment() {
                             valueMap["nickname"] = inputNickname
                             map[LoginInfo.key] = valueMap
                             database.updateChildren(map)
+
+                            LoginInfo.nickname = inputNickname
+
+                            val userActivityDatabase = FirebaseDatabase.getInstance().getReference("userActivity")
+                            userActivityDatabase.child("like").child(LoginInfo.nickname).setValue("")
+                            userActivityDatabase.child("unlike").child(LoginInfo.nickname).setValue("")
+                            userActivityDatabase.child("report").child(LoginInfo.nickname).setValue("")
+
+                            val fragmentTransaction = cfm.beginTransaction()
+
+                            val aaf = AllAuthenticatedFragment()
+                            aaf.setFragmentManager(cfm)
+                            fragmentTransaction.replace(R.id.dynamicFragment, aaf).commit()
                         } else
                             Toast.makeText(mContext, "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show()
                     }
@@ -70,5 +85,9 @@ class NoNicknameFragment : Fragment() {
         mContext = context
 //        val host = (mContext as MainActivity).supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
 //        navController = host.navController
+    }
+
+    fun setFragmentManager(cfm: FragmentManager) {
+        this.cfm = cfm
     }
 }

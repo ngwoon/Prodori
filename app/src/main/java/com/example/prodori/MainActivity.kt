@@ -79,6 +79,8 @@ class MainActivity : AppCompatActivity() {
                         LoginInfo.nickname = LoginInfo.NO_NICKNAME
                         FirebaseAuth.getInstance().signOut()
                     }
+                    .setTitle("로그아웃")
+                    .setMessage(R.string.logout_info)
                     .show()
             }
         }
