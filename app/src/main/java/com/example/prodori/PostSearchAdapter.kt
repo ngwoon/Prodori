@@ -1,15 +1,18 @@
 package com.example.prodori
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 
-class PostSearchAdapter(private val mContext: Context, private val posts: ArrayList<PostData>) : RecyclerView.Adapter<PostSearchAdapter.ViewHolder>() {
+class PostSearchAdapter(private val mContext: Context, private val posts: ArrayList<PostData>, private val postKeys: ArrayList<String>, private val cfm: FragmentManager) : RecyclerView.Adapter<PostSearchAdapter.ViewHolder>() {
 
     val curPosts = ArrayList<PostData>()
 
@@ -22,9 +25,19 @@ class PostSearchAdapter(private val mContext: Context, private val posts: ArrayL
         val writer: TextView = itemView.findViewById(R.id.writer)
         val category: TextView = itemView.findViewById(R.id.category)
         val postImage: ImageView = itemView.findViewById(R.id.postImageView)
+        val linearLayout: LinearLayout = itemView.findViewById(R.id.linearLayout)
         init {
-            itemView.setOnClickListener {
-                
+            linearLayout.setOnClickListener {
+
+                val fragmentTransaction = cfm.beginTransaction()
+                val fragment = DetailPostFragment()
+                fragment.arguments = Bundle().apply {
+                    putSerializable("postData", posts[adapterPosition])
+                    putSerializable("postKey", postKeys[adapterPosition])
+                }
+                fragmentTransaction.replace(R.id.dynamicFragment, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
             }
         }
     }
@@ -43,7 +56,7 @@ class PostSearchAdapter(private val mContext: Context, private val posts: ArrayL
         holder.title.text = posts[position].title
         holder.writer.text = posts[position].writer
         holder.category.text = posts[position].category
-//        holder.postImage.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_no_image, null))
+        holder.postImage.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_no_image, null))
         holder.writer.text = posts[position].writer
     }
 }

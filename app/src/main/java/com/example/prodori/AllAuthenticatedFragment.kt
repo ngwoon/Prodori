@@ -19,7 +19,8 @@ import kotlinx.android.synthetic.main.fragment_all_authenticated.view.*
 class AllAuthenticatedFragment : Fragment() {
 
     private val posts = ArrayList<PostData>()
-    private lateinit var mContext: Context
+    private val postKeys = ArrayList<String>()
+    lateinit var mContext: Context
     private var adapter: PostSearchAdapter? = null
     private lateinit var cfm: FragmentManager
 
@@ -33,15 +34,14 @@ class AllAuthenticatedFragment : Fragment() {
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                posts.clear()
+                postKeys.clear()
                 for(snapshot in dataSnapshot.children) {
+                    postKeys.add(snapshot.key!!)
+
                     val postMap = snapshot.value as HashMap<*, *>
 
-                    Log.i(".AllAuthFragment", postMap["title"] as String)
-                    Log.i(".AllAuthFragment", postMap["writer"] as String)
-                    Log.i(".AllAuthFragment", postMap["content"] as String)
-                    Log.i(".AllAuthFragment", postMap["category"] as String)
-
-                    posts.add(PostData(postMap["title"] as String, postMap["writer"] as String, postMap["content"] as String, postMap["category"] as String))
+                    posts.add(PostData(postMap["title"] as String, postMap["writer"] as String, postMap["content"] as String, postMap["category"] as String, postMap["like"] as Long, postMap["unlike"] as Long, postMap["report"] as Long))
 
                     var updated = false
                     while(!updated) {
@@ -56,7 +56,7 @@ class AllAuthenticatedFragment : Fragment() {
         })
 
         view.postRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
-        adapter = PostSearchAdapter(mContext, posts)
+        adapter = PostSearchAdapter(mContext, posts, postKeys, cfm)
         view.postRecyclerView.adapter = adapter
 
         view.postImageView.setOnClickListener {

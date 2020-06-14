@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                         // This method is called once with the initial value and again
                         // whenever data at this location is updated.
 
-                        val user = response?.user!!
+                        val user = response.user!!
                         var isExist = false
                         for(snapshot in dataSnapshot.children) {
                             val pair = snapshot.value as HashMap<*,*>
