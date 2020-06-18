@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -34,6 +35,8 @@ class DetailPostFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_detail_post, container, false)
+
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         post = arguments!!["postData"] as PostData
         key = arguments!!["postKey"] as String
@@ -75,7 +78,7 @@ class DetailPostFragment : Fragment() {
 
         view.detail_post_siren_button.setOnClickListener {
             val builder = AlertDialog.Builder(mContext)
-            builder.setView(layoutInflater.inflate(R.layout.dialog_logout, null))
+            builder.setView(layoutInflater.inflate(R.layout.dialog, null))
                 .setNegativeButton("취소") { _, _ -> }
                 .setPositiveButton("확인") { _, _ ->
                     checkAlreadyPressed("report")
@@ -120,21 +123,27 @@ class DetailPostFragment : Fragment() {
                             post.like = postMap["like"] as Long
                             post.unlike = postMap["unlike"] as Long
                             post.report = postMap["report"] as Long
-                            post.like += 1
+
+                            when(type) {
+                                "like" -> {
+                                    Toast.makeText(mContext, "이 게시글을 추천합니다.", Toast.LENGTH_SHORT).show()
+                                    post.like += 1
+                                }
+                                "unlike" -> {
+                                    Toast.makeText(mContext, "이 게시글을 비추천합니다.", Toast.LENGTH_SHORT).show()
+                                    post.unlike += 1
+                                }
+                                "report" -> {
+                                    Toast.makeText(mContext, "이 게시글을 신고합니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
                             postDatabase.child(key).setValue(post)
 
                             view!!.detail_post_like_button.text = post.like.toString()
                             view!!.detail_post_like.text = "추천 " + post.like.toString()
                             view!!.detail_post_unlike_button.text = post.unlike.toString()
                             view!!.detail_post_unlike.text = "비추천 " + post.unlike.toString()
-
-                            when(type) {
-                                "like" -> Toast.makeText(mContext, "이 게시글을 추천합니다.", Toast.LENGTH_SHORT).show()
-                                "unlike" -> Toast.makeText(mContext, "이 게시글을 비추천합니다.", Toast.LENGTH_SHORT).show()
-                                "report" -> {
-                                    Toast.makeText(mContext, "이 게시글을 신고합니다.", Toast.LENGTH_SHORT).show()
-                                }
-                            }
                         }
                         override fun onCancelled(p0: DatabaseError) {
                             Toast.makeText(mContext, "데이터베이스 오류. 게시글 추천 실패", Toast.LENGTH_SHORT).show()

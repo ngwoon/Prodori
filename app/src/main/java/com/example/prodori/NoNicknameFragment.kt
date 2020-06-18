@@ -43,7 +43,7 @@ class NoNicknameFragment : Fragment() {
                         var isExist = false
                         for (snapshot in dataSnapshot.children) {
                             val pair = snapshot.value as HashMap<*, *>
-                            if (pair["second"] == inputNickname) {
+                            if (pair["nickname"] == inputNickname) {
                                 isExist = true
                                 break
                             }

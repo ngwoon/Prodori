@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 launchSignInFlow()
             else {
                 val builder = AlertDialog.Builder(this)
-                builder.setView(layoutInflater.inflate(R.layout.dialog_logout, null))
+                builder.setView(layoutInflater.inflate(R.layout.dialog, null))
                     .setNegativeButton("취소") { _, _ -> }
                     .setPositiveButton("확인") { _, _ ->
                         leftImageView.setImageDrawable(resources.getDrawable(R.drawable.ic_login, null))
@@ -78,6 +78,12 @@ class MainActivity : AppCompatActivity() {
                         LoginInfo.email = LoginInfo.DEFAULT_EMAIL
                         LoginInfo.nickname = LoginInfo.NO_NICKNAME
                         FirebaseAuth.getInstance().signOut()
+
+                        if(bottomNavigationView.selectedItemId == R.id.community) {
+                            val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container)!!
+                            val communityFragment = hostFragment.childFragmentManager.fragments[0] as CommunityFragment
+                            communityFragment.refresh()
+                        }
                     }
                     .setTitle("로그아웃")
                     .setMessage(R.string.logout_info)
@@ -89,19 +95,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun launchSignInFlow() {
-        // Give users the option to sign in / register with their email or Google account.
-        // If users choose to register with their email,
-        // they will need to create a password as well.
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(), AuthUI.IdpConfig.GoogleBuilder().build()
-
-            // This is where you can provide more ways for users to register and
-            // sign in.
         )
 
-        // Create and launch the sign-in intent.
-        // We listen to the response of this activity with the
-        // SIGN_IN_REQUEST_CODE.
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()

@@ -9,28 +9,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="5"
-            android:inputType="text"
-            android:hint="알아보고 싶은 제품 검색!" />
+            android:layout_weight="8"
+            android:hint="알아보고 싶은 물품 검색!"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/searchButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="검색" />
+
+        <ImageView
+            android:id="@+id/helpImageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_help"/>
 
     </LinearLayout>
 
@@ -50,7 +53,7 @@
             android:layout_weight="1"
             android:background="@drawable/cell_shape"
             android:padding="10dp"
-            android:text="제품명"
+            android:text="물품명"
             android:textSize="20sp" />
 
         <TextView
@@ -60,7 +63,7 @@
             android:layout_weight="1"
             android:background="@drawable/cell_shape"
             android:padding="10dp"
-            android:text="제작 회사"
+            android:text="제조사"
             android:textSize="20sp" />
 
         <TextView

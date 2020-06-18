@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -59,27 +61,51 @@ class AllAuthenticatedFragment : Fragment() {
         adapter = PostSearchAdapter(mContext, posts, postKeys, cfm)
         view.postRecyclerView.adapter = adapter
 
+        view.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                adapter!!.searchCondition = view.searchConditionSpinner.getItemAtPosition(view.searchConditionSpinner.selectedItemPosition) as String
+                adapter!!.filter.filter(query)
+                view.searchView.setQuery("", false)
+                view.searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+
+        val spinnerAdapter = ArrayAdapter(mContext, R.layout.support_simple_spinner_dropdown_item, resources.getStringArray(R.array.search_condition))
+        view.searchConditionSpinner.adapter = spinnerAdapter
+
         view.postImageView.setOnClickListener {
             val fragmentTransaction = cfm.beginTransaction()
             val fragment = WritePostFragment()
             fragment.setFragmentManager(cfm)
             fragmentTransaction.replace(R.id.dynamicFragment, fragment)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
+        view.totalCategory.setOnClickListener {
+            adapter!!.curPosts = posts
+            adapter!!.notifyDataSetChanged()
+        }
         view.reviewCategory.setOnClickListener {
-            adapter!!.curPosts.clear()
+            val filteringList = ArrayList<PostData>()
             for(post in posts) {
-                if(post.category == "사용 후기")
-                    adapter!!.curPosts.add(post)
+                if(post.category == "구매 후기")
+                    filteringList.add(post)
             }
+            adapter!!.curPosts = filteringList
             adapter!!.notifyDataSetChanged()
         }
         view.questionCategory.setOnClickListener {
-            adapter!!.curPosts.clear()
+            val filteringList = ArrayList<PostData>()
             for(post in posts) {
                 if(post.category == "질문")
-                    adapter!!.curPosts.add(post)
+                    filteringList.add(post)
             }
+            adapter!!.curPosts = filteringList
             adapter!!.notifyDataSetChanged()
         }
 

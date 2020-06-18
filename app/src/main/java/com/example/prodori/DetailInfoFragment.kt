@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class DetailInfoFragment : Fragment() {
 
-    private val itemTitle = arrayOf("제품명", "제조사", "주소", "적발내용", "행정처분일자", "처분명", "위반법령")
+    private val itemTitle = arrayOf("물품명", "제조사", "주소", "적발내용", "행정처분일자", "처분명", "위반법령")
     private lateinit var mContext: Context
     private lateinit var navController: NavController
 

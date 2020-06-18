@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -52,13 +53,27 @@ class SearchFragment : Fragment() {
 
         view.searchButton.setOnClickListener {
             val searchText = view.editText.text.toString()
-            val asyncTask = RequestAsyncTask(this)
-            asyncTask.execute(searchText)
-            view.tableLayout.removeAllViews()
+            if(searchText == "") {
+                Toast.makeText(mContext, "검색어를 입력해 주세요.", Toast.LENGTH_SHORT).show()
+                view.editText.clearFocus()
+            } else {
+                val asyncTask = RequestAsyncTask(this)
+                asyncTask.execute(searchText)
+                view.tableLayout.removeAllViews()
+            }
             
             // 검색 버튼 클릭 시 소프트키보드 숨기기
             val imm: InputMethodManager? = mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
             imm?.hideSoftInputFromWindow((mContext as Activity).currentFocus?.windowToken, 0)
+        }
+
+        view.helpImageView.setOnClickListener {
+            val builder = AlertDialog.Builder(mContext)
+            builder.setView(layoutInflater.inflate(R.layout.dialog, null))
+                .setPositiveButton("확인") { _, _ -> }
+                .setTitle("도움말")
+                .setMessage(R.string.search_help_info)
+                .show()
         }
 
         return view

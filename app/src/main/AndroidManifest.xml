@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity" android:theme="@style/AppTheme.Dark"/>
+
         <activity android:name=".MainActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,3 +23,6 @@
     </application>
 
 </manifest>
+
+
+<!--    android:windowSoftInputMode="adjustNothing"-->
