@@ -2,7 +2,6 @@ package com.example.prodori
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,6 @@ class AllAuthenticatedFragment : Fragment() {
                     var updated = false
                     while(!updated) {
                         if(adapter != null) {
-                            Log.i("dataChanged", "updating..")
                             adapter!!.notifyDataSetChanged()
                             updated = true
                         }

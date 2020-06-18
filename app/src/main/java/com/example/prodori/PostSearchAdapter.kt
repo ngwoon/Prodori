@@ -2,7 +2,6 @@ package com.example.prodori
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,6 @@ class PostSearchAdapter(private val mContext: Context, private val posts: ArrayL
     }
 
     override fun getItemCount(): Int {
-        Log.i("getItemCount", "size : ${curPosts.size}")
         return curPosts.size
     }
 

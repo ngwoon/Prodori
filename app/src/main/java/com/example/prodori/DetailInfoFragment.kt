@@ -27,14 +27,9 @@ class DetailInfoFragment : Fragment() {
         val data = bundle?.getSerializable("AdInfo")
 
         makeRecord(data as AdInfo, view)
-
+    
+        // 상단 바에 뒤로 가기 버튼이 생기는 현상 방지
         (mContext as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-//        val customView = (mContext as MainActivity).supportActionBar?.customView
-//        var leftImageView = customView?.findViewById<ImageView>(R.id.leftImageView)
-//        leftImageView?.setImageDrawable(resources.getDrawable(R.drawable.ic_goback, null))
-//        leftImageView?.setOnClickListener {
-//            navController.popBackStack()
-//        }
 
         return view
     }

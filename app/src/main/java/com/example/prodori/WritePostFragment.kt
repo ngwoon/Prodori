@@ -41,11 +41,6 @@ class WritePostFragment : Fragment() {
                 val newPostRef = postDatabase.push()
                 newPostRef.setValue(PostData(title, LoginInfo.nickname, content, category, 0, 0, 0))
 
-//                var newPostKey = newPostRef.key
-//
-//                val replyDatabase = FirebaseDatabase.getInstance().getReference("replys")
-
-
                 val fragmentTransaction = cfm.beginTransaction()
                 val fragment = AllAuthenticatedFragment()
                 fragment.setFragmentManager(cfm)

@@ -35,7 +35,8 @@ class DetailPostFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_detail_post, container, false)
-
+        
+        // 댓글 작성 시 softkeyboard에 editText가 가려서 보이지 않는 현상 방지
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         post = arguments!!["postData"] as PostData
@@ -105,7 +106,7 @@ class DetailPostFragment : Fragment() {
                 val postKeys = value[LoginInfo.nickname]!!.split(" ")
 
                 var likeAlreadyPressed = false
-                for(postKey in postKeys!!) {
+                for(postKey in postKeys) {
                     if(key == postKey) {
                         likeAlreadyPressed = true
                         break
@@ -173,9 +174,7 @@ class DetailPostFragment : Fragment() {
         val lineParam = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1)
         lineParam.topMargin = 8
 
-        Log.i("DetailPostFragment_reply", "before reply attach")
         for(reply in replyData) {
-            Log.i("DetailPostFragment_reply", reply.writer + " " + reply.content)
             val linearLayout =  LinearLayout(mContext)
             val writerTextView = TextView(mContext)
             val contentTextView = TextView(mContext)

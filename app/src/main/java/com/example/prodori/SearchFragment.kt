@@ -160,7 +160,8 @@ class SearchFragment : Fragment() {
         }
 
         override fun doInBackground(vararg params: String): String {
-            val url = "http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?ServiceKey=${getString(R.string.SERVICE_KEY)}&Prduct=${params[0]}"
+            val url = "http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?ServiceKey=" +
+                    "${getString(R.string.SERVICE_KEY)}&Prduct=${params[0]}"
             val doc = Jsoup.connect(url).parser(Parser.xmlParser()).get()
             val responseCode = doc.select("resultCode").toString()
 
