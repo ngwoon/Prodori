@@ -65,6 +65,7 @@ class PostSearchAdapter(private val mContext: Context, private val posts: ArrayL
                 val charString = charSequence.toString()
                 if (charString.isEmpty()) {
                     curPosts = posts
+                    curPostKeys = postKeys
                 } else {
                     val filteringList = ArrayList<PostData>()
                     val keyFilteringList = ArrayList<String>()

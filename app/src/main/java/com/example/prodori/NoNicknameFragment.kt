@@ -29,6 +29,8 @@ class NoNicknameFragment : Fragment() {
             if(inputNickname == LoginInfo.NO_NICKNAME || inputNickname == LoginInfo.DEFAULT_EMAIL) {
                 Toast.makeText(mContext, "이 닉네임은 사용하실 수 없습니다.", Toast.LENGTH_SHORT).show()
             }
+            else if(inputNickname == "")
+                Toast.makeText(mContext, "닉네임을 입력해 주세요.", Toast.LENGTH_SHORT).show()
             else {
                 val database = FirebaseDatabase.getInstance().getReference("users")
                 database.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -39,7 +41,6 @@ class NoNicknameFragment : Fragment() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         // This method is called once with the initial value and again
                         // whenever data at this location is updated.
-
                         var isExist = false
                         for (snapshot in dataSnapshot.children) {
                             val pair = snapshot.value as HashMap<*, *>

@@ -86,24 +86,33 @@ class AllAuthenticatedFragment : Fragment() {
         }
         view.totalCategory.setOnClickListener {
             adapter!!.curPosts = posts
+            adapter!!.curPostKeys = postKeys
             adapter!!.notifyDataSetChanged()
         }
         view.reviewCategory.setOnClickListener {
             val filteringList = ArrayList<PostData>()
+            val keyFilteringList = ArrayList<String>()
             for(post in posts) {
-                if(post.category == "구매 후기")
+                if(post.category == "구매 후기") {
                     filteringList.add(post)
+                    keyFilteringList.add(postKeys[posts.indexOf(post)])
+                }
             }
             adapter!!.curPosts = filteringList
+            adapter!!.curPostKeys = keyFilteringList
             adapter!!.notifyDataSetChanged()
         }
         view.questionCategory.setOnClickListener {
             val filteringList = ArrayList<PostData>()
+            val keyFilteringList = ArrayList<String>()
             for(post in posts) {
-                if(post.category == "질문")
+                if(post.category == "질문") {
                     filteringList.add(post)
+                    keyFilteringList.add(postKeys[posts.indexOf(post)])
+                }
             }
             adapter!!.curPosts = filteringList
+            adapter!!.curPostKeys = keyFilteringList
             adapter!!.notifyDataSetChanged()
         }
 
