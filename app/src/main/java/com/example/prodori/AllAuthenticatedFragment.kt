@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +30,7 @@ class AllAuthenticatedFragment : Fragment() {
         val postDatabase = FirebaseDatabase.getInstance().getReference("posts")
         postDatabase.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                Toast.makeText(mContext, "게시글 로드 실패", Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
