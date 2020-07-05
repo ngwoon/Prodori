@@ -9,6 +9,11 @@ Prodori
 ### 기능 소개
 https://www.youtube.com/watch?v=UNpAzgXkizQ&t=11s
 
-### apk 다운로드
+### APK 다운로드
 https://drive.google.com/file/d/1tIFm0bL_0Ji2QKEuKKvGpga_Cmu490Il/view?usp=sharing
+
+### LICENSE
+This project is licensed under the MIT License - see the LICENSE.md file for details
+
+
 
